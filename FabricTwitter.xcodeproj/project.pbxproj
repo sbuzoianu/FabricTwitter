@@ -13,6 +13,10 @@
 		0C029B131C12EAC9000292C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C029B111C12EAC9000292C2 /* Main.storyboard */; };
 		0C029B151C12EAC9000292C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C029B141C12EAC9000292C2 /* Assets.xcassets */; };
 		0C029B181C12EAC9000292C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C029B161C12EAC9000292C2 /* LaunchScreen.storyboard */; };
+		0C029B241C12F09D000292C2 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C029B201C12F09D000292C2 /* Fabric.framework */; };
+		0C029B251C12F09D000292C2 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C029B211C12F09D000292C2 /* TwitterKit.framework */; };
+		0C029B261C12F09D000292C2 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C029B221C12F09D000292C2 /* TwitterKitResources.bundle */; };
+		0C029B271C12F09E000292C2 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C029B231C12F09D000292C2 /* TwitterCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		0C029B141C12EAC9000292C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C029B171C12EAC9000292C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C029B191C12EAC9000292C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C029B201C12F09D000292C2 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		0C029B211C12F09D000292C2 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		0C029B221C12F09D000292C2 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		0C029B231C12F09D000292C2 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +41,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C029B241C12F09D000292C2 /* Fabric.framework in Frameworks */,
+				0C029B271C12F09E000292C2 /* TwitterCore.framework in Frameworks */,
+				0C029B251C12F09D000292C2 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +53,10 @@
 		0C029AFC1C12EAC9000292C2 = {
 			isa = PBXGroup;
 			children = (
+				0C029B201C12F09D000292C2 /* Fabric.framework */,
+				0C029B211C12F09D000292C2 /* TwitterKit.framework */,
+				0C029B221C12F09D000292C2 /* TwitterKitResources.bundle */,
+				0C029B231C12F09D000292C2 /* TwitterCore.framework */,
 				0C029B071C12EAC9000292C2 /* FabricTwitter */,
 				0C029B061C12EAC9000292C2 /* Products */,
 			);
@@ -89,6 +104,7 @@
 				0C029B011C12EAC9000292C2 /* Sources */,
 				0C029B021C12EAC9000292C2 /* Frameworks */,
 				0C029B031C12EAC9000292C2 /* Resources */,
+				0C029B1F1C12F023000292C2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -137,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C029B261C12F09D000292C2 /* TwitterKitResources.bundle in Resources */,
 				0C029B181C12EAC9000292C2 /* LaunchScreen.storyboard in Resources */,
 				0C029B151C12EAC9000292C2 /* Assets.xcassets in Resources */,
 				0C029B131C12EAC9000292C2 /* Main.storyboard in Resources */,
@@ -144,6 +161,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C029B1F1C12F023000292C2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 718855566061ad24d0adaf13745315e0ddfe2821 7b114da704923ab8487495a6c6282ca1ccb10eb878e71bb0537e7c7757273ae5";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0C029B011C12EAC9000292C2 /* Sources */ = {
@@ -214,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -251,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -262,6 +295,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FabricTwitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Stefan.FabricTwitter;
@@ -273,6 +310,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FabricTwitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Stefan.FabricTwitter;
@@ -299,6 +340,7 @@
 				0C029B1E1C12EAC9000292C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

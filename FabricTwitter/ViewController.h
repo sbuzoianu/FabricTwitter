@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TwitterKit/TwitterKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <TWTRTweetViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 
 @end
