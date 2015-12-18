@@ -101,40 +101,6 @@
     // aducem user cu id=sbuzoianu_ro - problema xcode 7.2
     // [client loadUserWithID:userID completion:^(TWTRUser *user, NSError *error) { }];
     
-#pragma mark - Twitter request manually created
-// show - aduce tweet-ul userului specificat in NSDictionary
-//    NSDictionary *params = @{@"id" : @"20"};
-//    NSString *statusesShowEndpoint = @"https://api.twitter.com/1.1/statuses/show.json";
-    
-    
-// home_timeline - aduce cel mult 800 de tweet-uri ale userului
-//
-//    NSString *statusesShowEndpoint = @"https://api.twitter.com/1.1/statuses/home_timeline.json";
-//    NSDictionary *params = @{};
-//    NSError *clientError;
-//    
-//    NSURLRequest *request = [client URLRequestWithMethod:@"GET" URL:statusesShowEndpoint parameters:params error:&clientError];
-//    
-//    if (request) {
-//        [client sendTwitterRequest:request completion:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//            if (data) {
-//                NSError *jsonError;
-//                NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-//                self.tweets=[TWTRTweet tweetsWithJSONArray:json];
-//                [self.tableView reloadData];
-//                
-//                NSLog(@"s-a extras din feed: %@", self.tweets);
-//            }
-//            else {
-//                NSLog(@"Error: %@", connectionError);
-//            }
-//        }];
-//    }
-//    
-//    else {
-//        NSLog(@"Error: %@", clientError);
-//    }
-//
 }
 
 # pragma mark - Load Twitter search query
