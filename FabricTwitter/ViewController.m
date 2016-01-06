@@ -1,11 +1,3 @@
-//
-//  ViewController.m
-//  FabricTwitter
-//
-//  Created by Stefan on 05/12/15.
-//  Copyright © 2015 Stefan. All rights reserved.
-//
-
 #import "ViewController.h"
 #import <TwitterKit/TwitterKit.h>
 
@@ -36,9 +28,6 @@
 
     [self deseneaza];
     
-    //  logare cu buton
-    //    TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
-    
     [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
         if (session) {
       //      NSLog(@"signed in as %@ , %@", [session userName], session.userID);
@@ -52,9 +41,6 @@
         }
     }];
     
-//    logInButton.center = self.view.center;
-//    self.logInButton = logInButton;
-//    [self.view addSubview:logInButton];
     
 }
 
@@ -91,7 +77,6 @@
 }
 
 
-
 # pragma mark - Load Twitter search query
 #define RESULTS_PERPAGE @"10"
 
@@ -119,7 +104,6 @@
                 NSLog(@"Error aici : %@", connectionError);
             }
         }];
-      //  NSLog(@"a reusit req rez=%@", req);
     }
     
     else {
