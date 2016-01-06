@@ -34,8 +34,32 @@
     NSString *userID = [Twitter sharedInstance].sessionStore.session.userID;
     TWTRAPIClient *client = [[TWTRAPIClient alloc] initWithUserID:userID];
 
+    [self deseneaza];
     
-// UITableView
+    //  logare cu buton
+    //    TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
+    
+    [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
+        if (session) {
+      //      NSLog(@"signed in as %@ , %@", [session userName], session.userID);
+            self.logInButton.hidden=YES;
+            self.tableView.hidden=NO;
+            self.searchTextField.hidden=NO;
+            [self loadQuery:client];
+
+        } else {
+            NSLog(@"Login error: %@", [error localizedDescription]);
+        }
+    }];
+    
+//    logInButton.center = self.view.center;
+//    self.logInButton = logInButton;
+//    [self.view addSubview:logInButton];
+    
+}
+
+- (void) deseneaza{
+    // UITableView
     CGFloat x = 0;
     CGFloat y = 50;
     CGFloat width = self.view.frame.size.width;
@@ -49,66 +73,32 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     
-// definim un searchTextField
-    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(5,20, width, 34)];
+    // definim un searchTextField
+    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(2,20, width-4, 34)];
+    searchTextField.borderStyle=UITextBorderStyleRoundedRect;
+    searchTextField.backgroundColor=[UIColor colorWithRed:14.0f/255.0f green:153.0f/255.0f blue:255.0f/255.0f alpha:1];
+    searchTextField.font = [UIFont systemFontOfSize:15];
+    searchTextField.textAlignment=NSTextAlignmentCenter;
+    searchTextField.attributedPlaceholder=[[NSAttributedString alloc] initWithString:@"#hashtag" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    searchTextField.textColor=[UIColor whiteColor];
+    searchTextField.keyboardType = UIKeyboardTypeDefault;
+    searchTextField.returnKeyType = UIReturnKeyDone;
     self.searchTextField=searchTextField;
-    
-    [self.searchTextField setBackgroundColor:[UIColor colorWithRed:64.0f/255.0f green:153.0f/255.0f blue:255.0f/255.0f alpha:1]];
-    self.searchTextField.font = [UIFont systemFontOfSize:15];
-    self.searchTextField.textAlignment=NSTextAlignmentCenter;
-    self.searchTextField.placeholder = @"#hashtag";
-    [self.searchTextField setTextColor:[UIColor whiteColor]];
-    self.searchTextField.keyboardType = UIKeyboardTypeDefault;
-    self.searchTextField.returnKeyType = UIReturnKeyDone;
-    self.searchTextField.hidden=YES;
-    
-//  VC este delegate-ul pentru searchTextField
-    self.searchTextField.delegate=self;
-    [self.view addSubview:self.searchTextField];
+    //  VC este delegate-ul pentru searchTextField
+    searchTextField.delegate=self;
+    [self.view addSubview:searchTextField];
 
-    
-
-//// logare invizibila
-////  [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
-    TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
-        if (session) {
-            NSLog(@"signed in as %@ , %@", [session userName], session.userID);
-            self.logInButton.hidden=YES;
-            self.tableView.hidden=NO;
-            self.searchTextField.hidden=YES;
-            [self loadQuery:client];
-
-
-        } else {
-            NSLog(@"Login error: %@", [error localizedDescription]);
-        }
-    }];
-    logInButton.center = self.view.center;
-    self.logInButton = logInButton;
-    [self.view addSubview:logInButton];
-    
-
-    
-    // aducem un singur tweet din userId=20
-    [client loadTweetWithID:@"20" completion:^(TWTRTweet *tweet, NSError *error) {
-    }];
-    
-    // aducem mai multe tweet-uri din userId-uri diferite =20, 510908133917487104 si 31
-    NSArray *tweetIDs = @[@"20", @"510908133917487104", @"31", @"1234"];
-    [client loadTweetsWithIDs:tweetIDs completion:^(NSArray *tweets, NSError *error) {
-    }];
-    
-    // aducem user cu id=sbuzoianu_ro - problema xcode 7.2
-    // [client loadUserWithID:userID completion:^(TWTRUser *user, NSError *error) { }];
-    
 }
+
+
 
 # pragma mark - Load Twitter search query
 #define RESULTS_PERPAGE @"10"
 
 - (void) loadQuery:(TWTRAPIClient*) client{
     NSString *url = @"https://api.twitter.com/1.1/search/tweets.json";
-    self.searchText=@"apple";
+    
+    self.searchText=@"romania";
     NSString *encodedQuery = [self.searchText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSDictionary *parameters = @{@"count" : RESULTS_PERPAGE,
                                  @"q" : encodedQuery};
@@ -129,7 +119,7 @@
                 NSLog(@"Error aici : %@", connectionError);
             }
         }];
-        NSLog(@"a reusit req rez=%@", req);
+      //  NSLog(@"a reusit req rez=%@", req);
     }
     
     else {
