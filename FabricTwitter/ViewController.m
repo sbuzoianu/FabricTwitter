@@ -4,7 +4,7 @@
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
-@property (weak, nonatomic) TWTRLogInButton *logInButton;
+@property (weak, nonatomic) TWTRLogInButton *logInButton; // utilizat daca am autentificare manuala
 @property (strong, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) NSArray *tweets;
 @property (strong, nonatomic) UITextField *searchTextField;
@@ -23,25 +23,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSString *userID = [Twitter sharedInstance].sessionStore.session.userID;
-    TWTRAPIClient *client = [[TWTRAPIClient alloc] initWithUserID:userID];
-
     [self deseneaza];
     
-    [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
-        if (session) {
-      //      NSLog(@"signed in as %@ , %@", [session userName], session.userID);
-            self.logInButton.hidden=YES;
-            self.tableView.hidden=NO;
-            self.searchTextField.hidden=NO;
-            [self loadQuery:client];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    
+    [self interogareTwitter];
+    
+}
 
-        } else {
-            NSLog(@"Login error: %@", [error localizedDescription]);
-        }
-    }];
-    
-    
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [self interogareTwitter];
+    [refreshControl endRefreshing];
 }
 
 - (void) deseneaza{
@@ -69,6 +63,7 @@
     searchTextField.textColor=[UIColor whiteColor];
     searchTextField.keyboardType = UIKeyboardTypeDefault;
     searchTextField.returnKeyType = UIReturnKeyDone;
+    searchTextField.autocorrectionType=UITextAutocorrectionTypeNo;
     self.searchTextField=searchTextField;
     //  VC este delegate-ul pentru searchTextField
     searchTextField.delegate=self;
@@ -80,10 +75,27 @@
 # pragma mark - Load Twitter search query
 #define RESULTS_PERPAGE @"10"
 
-- (void) loadQuery:(TWTRAPIClient*) client{
+- (void) interogareTwitter{
+    
+    NSString *userID = [Twitter sharedInstance].sessionStore.session.userID;
+    TWTRAPIClient *client = [[TWTRAPIClient alloc] initWithUserID:userID];
+
+    [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
+        if (session) {
+            self.tableView.hidden=NO; // activez daca merge autentificare
+            
+        } else {
+            NSLog(@"Login error: %@", [error localizedDescription]);
+        }
+    }];
+
+    
     NSString *url = @"https://api.twitter.com/1.1/search/tweets.json";
     
+    if ([self.searchText length] == 0){
     self.searchText=@"romania";
+    }
+    
     NSString *encodedQuery = [self.searchText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSDictionary *parameters = @{@"count" : RESULTS_PERPAGE,
                                  @"q" : encodedQuery};
@@ -143,6 +155,8 @@
     if (textField==self.searchTextField){
         [textField resignFirstResponder];
         self.searchText=textField.text;
+        NSLog(@"s-a introdus %@", self.searchText);
+        [self interogareTwitter];
     }
     return true;
     
